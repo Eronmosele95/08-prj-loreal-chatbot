@@ -5,6 +5,36 @@
   padding: 0;
 }
 
+/* Theme variables for chat bubbles and related colors */
+:root {
+  --chat-bg: #fafafa;
+  --ai-bg: #ffffff;
+  --ai-text: #333333;
+  --ai-border: #e6e6e6;
+  --user-bg: #000000;
+  --user-text: #ffffff;
+  --user-border: rgba(0, 0, 0, 0.6);
+  --latest-bg: #fffefc;
+  --latest-text: #111111;
+}
+
+/*
+  Baur Bodoni Black
+  ------------------
+  This project references a local webfont file. Obtain the font and place
+  the woff2 file at `./fonts/BaurBodoni-Black.woff2` (or adjust the URL
+  below). Ensure you have the proper license to host this font.
+
+  If you don't have the font, the site will fall back to serif fonts.
+*/
+@font-face {
+  font-family: "Baur Bodoni Black";
+  src: url("./fonts/BaurBodoni-Black.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* —— body + fonts —— */
 body {
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
@@ -24,10 +54,30 @@ body {
   padding-top: 50px;
 }
 
-.site-title {
-  font-size: 22px;
-  font-weight: 500;
+/* Brand layout: large brand title and small subtitle */
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
   margin-bottom: 10px;
+}
+
+.brand-title {
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  /* Use Baur Bodoni Black when available, otherwise fall back to serif */
+  font-family: "Baur Bodoni Black", "Playfair Display", Georgia,
+    "Times New Roman", serif;
+}
+
+.brand-subtitle {
+  font-size: 16px;
+  color: #666;
+  font-weight: 400;
 }
 
 /* chat window */
@@ -42,7 +92,7 @@ body {
   font-size: 18px;
   line-height: 1.5;
   overflow-y: auto;
-  background: #fafafa;
+  background: var(--chat-bg);
   white-space: pre-line;
 }
 
@@ -50,14 +100,44 @@ body {
 .msg {
   margin-bottom: 14px;
   line-height: 1.5;
+  display: inline-block;
 }
 
-.msg.user {
-  color: #000;
+/* Chat bubble layout */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.msg {
+  max-width: 72%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  word-wrap: break-word;
+  white-space: pre-line;
 }
 
 .msg.ai {
-  color: #666666;
+  align-self: flex-start;
+  background: var(--ai-bg);
+  border: 1px solid var(--ai-border);
+  color: var(--ai-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.msg.user {
+  align-self: flex-end;
+  background: var(--user-bg);
+  color: var(--user-text);
+  border: 1px solid var(--user-border);
+}
+
+/* Slightly different radius when messages stack */
+.msg.ai + .msg.ai,
+.msg.user + .msg.user {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 /* input row */
@@ -105,6 +185,44 @@ body {
 .chat-form button:focus {
   outline: 2px solid #000;
   outline-offset: 2px;
+}
+
+/* wrapper for send + clear buttons */
+.chat-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* clear button styling (secondary) */
+.clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.clear-btn:hover {
+  background: #f2f2f2;
+}
+
+/* Latest user question shown above the assistant response */
+.latest-question {
+  font-size: 15px;
+  color: var(--latest-text);
+  margin: 8px 0 6px;
+  padding: 8px 10px;
+  background: var(--latest-bg);
+  border-left: 3px solid #000;
+  border-radius: 4px;
+  white-space: pre-line;
 }
 
 /* visually hidden */

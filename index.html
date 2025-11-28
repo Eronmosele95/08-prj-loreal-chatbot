@@ -19,7 +19,10 @@
     <div class="page-wrapper">
       <!------- Header / Branding ------->
       <header class="site-header">
-        <h1 class="site-title">Smart Product Advisor</h1>
+        <div class="brand">
+          <div class="brand-title">L'ORÉAL</div>
+          <div class="brand-subtitle">Smart Routine &amp; Product Advisor</div>
+        </div>
       </header>
 
       <!------- Chat Area ------->
@@ -35,14 +38,26 @@
               id="userInput"
               name="userInput"
               type="text"
-              placeholder="Ask me about products or routines…"
+              placeholder="Ask me about any L'Oréal products or routines…"
               autocomplete="off"
               required
             />
-            <button type="submit" id="sendBtn">
-              <span class="material-icons">send</span>
-              <span class="visually-hidden">Send</span>
-            </button>
+            <div class="chat-actions">
+              <button type="submit" id="sendBtn">
+                <span class="material-icons">send</span>
+                <span class="visually-hidden">Send</span>
+              </button>
+
+              <button
+                type="button"
+                id="clearBtn"
+                class="clear-btn"
+                title="Clear conversation"
+              >
+                <span class="material-icons">delete_sweep</span>
+                <span class="visually-hidden">Clear conversation</span>
+              </button>
+            </div>
           </form>
         </section>
       </main>
@@ -59,8 +74,10 @@
       </footer>
     </div>
 
-    <!-- secrets.js can be removed when using Cloudflare Workers for API requests -->
-    <script src="secrets.js"></script>
+    <!-- secret.js can be removed when using Cloudflare Workers for API requests -->
+    <!-- Load the local secrets file (if present) before the main script so
+          window.CF_WORKER_URL and other values are available to `script.js`. -->
+    <script src="secret.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
